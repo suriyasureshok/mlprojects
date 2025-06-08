@@ -3,7 +3,6 @@ This File creates a custom exception.
 """
 import sys
 import logging
-import logger
 
 def error_message_details(error, error_detail:sys):
     """
