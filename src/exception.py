@@ -4,18 +4,20 @@ This File creates a custom exception.
 import sys
 import logging
 
-def error_message_details(error, error_detail:sys):
+def error_message_details(error, error_detail: sys):
     """
-    This Function helps to get and return the error message details and the error detail from the sys module.
+    This function returns detailed error message including filename and line number.
     """
-    _,_,exc_tb=error_detail.exc_info()
-    file_name = exc_tb.tb_frame.f_code.co_filename
-    error_message = "Error occured in python script name [{0}] line number [{1}] error message [{2}]".format(
-        file_name, exc_tb.tb_lineno,str(error)
-    )
+    exc_type, exc_value, exc_tb = error_detail.exc_info()
+
+    if exc_tb is not None:
+        file_name = exc_tb.tb_frame.f_code.co_filename
+        line_number = exc_tb.tb_lineno
+        error_message = f"Error occurred in python script name [{file_name}] line number [{line_number}] error message [{str(error)}]"
+    else:
+        error_message = f"Error occurred with message: {str(error)}"
 
     return error_message
-
 
 class CustomException(Exception):
     """
